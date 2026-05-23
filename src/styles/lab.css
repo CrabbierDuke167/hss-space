@@ -1,7 +1,10 @@
+/* ==========================================================================
+   BASE LAYOUT (UNCHANGED)
+   ========================================================================== */
+
 .lab-page {
   width: 100%;
   min-height: 100vh;
-  /* Assuming your main site background is dark */
 }
 
 .lab-container {
@@ -14,40 +17,102 @@
   margin: 0 auto;
 }
 
-/* Header */
+/* ==========================================================================
+   HEADER
+   ========================================================================== */
+
 .lab-header {
   text-align: center;
   margin-bottom: 4rem;
+
+  position: relative;
+  overflow: hidden;
 }
 
+/* MAIN TITLE */
 .lab-header h1 {
   font-size: 8rem;
   font-weight: 800;
   letter-spacing: -0.05em;
   line-height: 1;
   margin: 0;
+
+  opacity: 0;
+  animation: labReveal 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
+/* SUBTITLE */
 .subtitle {
   font-family: 'Courier New', Courier, monospace;
   font-size: 0.75rem;
   letter-spacing: 0.3em;
   color: #666;
   margin-top: 1rem;
+
+  opacity: 0;
+  animation: labReveal 1s cubic-bezier(0.16, 1, 0.3, 1) 0.15s forwards;
 }
 
-/* Data blocks for that "Tech/Lab" aesthetic */
+/* ==========================================================================
+   SCANLINE EFFECT ON HEADER (NEW)
+   ========================================================================== */
+
+.lab-header::after {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+
+  background: linear-gradient(
+    120deg,
+    transparent 40%,
+    rgba(255,255,255,0.08) 50%,
+    transparent 60%
+  );
+
+  transform: translateX(-100%) rotate(10deg);
+  animation: scanSweep 2.2s ease-out forwards;
+  pointer-events: none;
+}
+
+@keyframes scanSweep {
+  0% {
+    transform: translateX(-100%) rotate(10deg);
+  }
+  100% {
+    transform: translateX(100%) rotate(10deg);
+  }
+}
+
+/* ==========================================================================
+   BODY GRID
+   ========================================================================== */
+
 .lab-body {
   width: 100%;
   display: grid;
   gap: 2rem;
 }
 
+/* DATA BLOCK */
 .data-block {
   border-left: 1px solid #333;
   padding-left: 1.5rem;
+
+  opacity: 0;
+  animation: labReveal 1.1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
+/* stagger blocks */
+.data-block:nth-child(1) { animation-delay: 0.1s; }
+.data-block:nth-child(2) { animation-delay: 0.18s; }
+.data-block:nth-child(3) { animation-delay: 0.26s; }
+.data-block:nth-child(4) { animation-delay: 0.34s; }
+.data-block:nth-child(5) { animation-delay: 0.42s; }
+
+/* LABEL */
 .label {
   font-family: 'Courier New', Courier, monospace;
   font-size: 0.6rem;
@@ -56,26 +121,140 @@
   letter-spacing: 0.1em;
 }
 
+/* VALUE (NOW WITH TYPE EFFECT) */
 .value {
-  font-family: 'Courier New', Courier, monospace;
+  font-family: var(--font-main);
   font-size: 1rem;
   letter-spacing: 0.05em;
+
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+
+  border-right: 2px solid rgba(255,255,255,0.2);
+
+  animation:
+    typing 1.4s steps(30, end) forwards,
+    blink 0.8s step-end infinite;
 }
 
+/* FOOTER */
 .footer-note {
-  font-family: 'Courier New', Courier, monospace;
+  font-family: var(--font-mono);
   font-size: 0.7rem;
-  color: #333;
+  color: var(--accent);
   margin-top: 2rem;
-}
 
-/* Animation */
-.slide-up {
-  animation: slideUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   opacity: 0;
+  animation: labReveal 1s cubic-bezier(0.16, 1, 0.3, 1) 0.5s forwards;
 }
 
-@keyframes slideUp {
-  from { transform: translateY(60px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
+/* ==========================================================================
+   MAIN CINEMATIC REVEAL (CLEAN BLUR → SHARP)
+   ========================================================================== */
+
+@keyframes labReveal {
+  0% {
+    opacity: 0;
+    transform: translateY(40px) scale(0.98);
+    filter: blur(12px);
+  }
+
+  60% {
+    opacity: 0.7;
+    transform: translateY(6px) scale(1.01);
+    filter: blur(3px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+/* ==========================================================================
+   TYPING EFFECT
+   ========================================================================== */
+
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes blink {
+  50% {
+    border-color: transparent;
+  }
+}
+
+/* ==========================================================================
+   VALUE TEXT RESPONSIVE FIX (ALL DEVICES)
+   ========================================================================== */
+
+/* Large tablets / small laptops */
+@media (max-width: 1024px) {
+  .value {
+    font-size: 0.95rem;
+    letter-spacing: 0.04em;
+  }
+}
+
+/* Tablets */
+@media (max-width: 768px) {
+  .value {
+    font-size: 0.9rem;
+    letter-spacing: 0.03em;
+
+    /* prevent overflow issues */
+    white-space: normal;
+    overflow-wrap: break-word;
+
+    border-right: 2px solid rgba(255,255,255,0.15);
+  }
+}
+
+/* Large phones */
+@media (max-width: 600px) {
+  .value {
+    font-size: 0.85rem;
+    letter-spacing: 0.02em;
+
+    /* typing effect stays safe */
+    max-width: 100%;
+  }
+}
+
+/* Small phones */
+@media (max-width: 420px) {
+  .value {
+    font-size: 0.8rem;
+    letter-spacing: 0.01em;
+
+    border-right: 1.5px solid rgba(255,255,255,0.12);
+  }
+}
+
+/* Very small phones */
+@media (max-width: 350px) {
+  .value {
+    font-size: 0.75rem;
+    letter-spacing: 0;
+
+    /* safest fallback */
+    white-space: normal;
+    border-right: none;
+  }
+}
+
+/* Landscape height control (important for lab pages) */
+@media (max-height: 500px) {
+  .value {
+    font-size: 0.8rem;
+    white-space: normal;
+  }
 }

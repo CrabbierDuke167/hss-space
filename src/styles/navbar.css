@@ -11,21 +11,25 @@
     /* Smooth Slide-Down Hardware Accelerated Entry Setup */
     opacity: 0;
     transform: translateY(-16px);
-    animation: navSlideDownFade 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation: navSlideDownFade 0.22s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
     will-change: transform, opacity;
 }
 
-/* Keyframes configuration for smooth layout display */
+/* ===== MODERN NAVBAR ENTRY (FAST + CLEAN + UI STYLE) ===== */
+/* ===== ULTRA FAST NAVBAR SNAP IN ===== */
+
 @keyframes navSlideDownFade {
-    from {
+    0% {
         opacity: 0;
-        transform: translateY(-16px);
+        transform: translateY(-6px) scale(0.995);
     }
-    to {
+
+    100% {
         opacity: 1;
-        transform: translateY(0);
+        transform: translateY(0) scale(1);
     }
 }
+
 
 .navbar-left {
     display: flex;
@@ -33,26 +37,45 @@
     align-items: center;
 }
 
-/* BRAND LOGO DESIGN VIBE */
+
+/* BRAND LOGO DESIGN VIBE (FIXED) */
+
 .navbar-logo a {
     display: flex;
-    gap: 10px;
+    align-items: center;
+    gap: 8px;
+
     font-family: var(--font-main);
-    font-size: 12px;
+    font-size: 14px;   /* FIXED from 3px */
+
     cursor: pointer;
-    transition: var(--transition-normal);
+    transition: transform 0.25s ease, opacity 0.25s ease;
+
     text-decoration: none;
 }
 
+.navbar-logo a h1 {
+    font-size: 2.3rem;
+    font-weight: 600;
+    line-height: 1;
+    margin: 0;
+    letter-spacing: 2px;
+}
+
+/* LOGO HIGHLIGHT BOX */
 .navbar-logo a h1 span {
     color: var(--surface);
     background-color: var(--accent);
-    padding: 2px 8.5px;
-    margin-right: 8px;
+    padding: 2px 12px;
+    margin-right: 6px;
+    font-size: var(--space-5);
+    font-weight: 700;
+    border-radius: 4px;
 }
 
+/* HOVER EFFECT */
 .navbar-logo a:hover {
-    transform: scale(1.05);
+    transform: scale(1.04);
 }
 
 /* UNORDERED NAVIGATION SHELL */

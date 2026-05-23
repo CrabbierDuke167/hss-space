@@ -1,0 +1,73 @@
+:root {
+  --bg: #ffffff;
+  --ink: #000000;
+  --white: #ffffff;
+  --red: #ff0000;
+}
+
+.saved-page { background: var(--bg); min-height: 100vh; color: var(--ink); }
+
+.saved-container { max-width: 80%; margin: 0 auto; padding: 4rem 0; }
+
+/* Header */
+.saved-header { margin-bottom: 4rem; border-bottom: 4px solid var(--ink); padding-bottom: 1rem; }
+.saved-header h1 { font-family: var(--font-main); font-size: 4rem; text-transform: uppercase; margin: 0; }
+.subtitle { font-family: var(--font-mono); font-size: 0.9rem; letter-spacing: 0.1em; color: #555; }
+
+/* Staggered Slide-Up Animation */
+.saved-grid { display: flex; flex-direction: column; gap: 2rem; }
+
+.module-card {
+  border: 3px solid var(--ink);
+  padding: 2.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 3rem;
+  background: var(--white);
+  
+  /* The Animation */
+  opacity: 0;
+  transform: translateY(30px);
+  animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Staggering delay for each card */
+.module-card:nth-child(1) { animation-delay: 0.1s; }
+.module-card:nth-child(2) { animation-delay: 0.2s; }
+.module-card:nth-child(3) { animation-delay: 0.3s; }
+
+@keyframes slideUp {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.module-text { font-family: var(--font-main); font-size: 1.6rem; font-weight: 700; line-height: 1.3; margin: 0; }
+.module-meta { font-family: var(--font-mono); font-size: 0.75rem; margin-bottom: 0.5rem; display: block; color: #777; }
+
+/* INDUSTRIAL SWITCH BUTTONS */
+.module-actions { display: flex; flex-direction: column; gap: 0.8rem; min-width: 160px; }
+
+.act-btn {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 900;
+  padding: 1rem;
+  border: 3px solid var(--ink);
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.7rem;
+  transition: all 0.2s ease;
+}
+
+.act-btn:hover { background: var(--ink); color: var(--white); }
+.act-btn.trash:hover { background: var(--red); border-color: var(--red); }
+.act-btn.trash.active { background: var(--red); border-color: var(--red); color: var(--white); }
+
+@media (max-width: 768px) {
+  .saved-container { max-width: 90%; }
+  .module-card { flex-direction: column; align-items: flex-start; gap: 1.5rem; }
+  .module-actions { width: 100%; flex-direction: row; }
+}
