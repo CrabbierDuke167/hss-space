@@ -1,0 +1,153 @@
+.subjects-div {
+    display: flex;
+    width: 80%;
+    
+    margin: 1rem auto;
+    gap: var(--space-8);
+    justify-content: center;
+    align-items: center;
+}
+
+.subject-card {
+    border: var(--border);
+    width: 300px;
+    height: fit-content;
+    padding: 20px;
+    border-bottom: 20px solid var(--accent);
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    transition: var(--transition-slow);
+}
+
+.subject-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-md);
+    border-bottom: 20px solid var(--accent-dark);
+}
+
+.subject-icon {
+    background-color: var(--cream);
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    margin-bottom: var(--space-2);
+}
+
+.subject-glaze , .question-count {
+    font-size: 12px;
+    color: var(--taupe);
+    margin-bottom: var(--space-2);
+    margin-top: var(--space-1);
+}
+
+.subject-name {
+    font-size: var(--font-mono);
+    font-weight: 600;
+}
+
+.subject-palette{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    width:80%;
+    margin:40px auto 0 auto;
+    padding:10px 0;
+}
+
+/* LEFT TEXT */
+.palette-heading{
+    font-size:12px;
+    color:var(--info);
+    font-family:var(--font-mono);
+    letter-spacing:0.5px;
+}
+
+/* RIGHT DOT WRAPPER */
+.palette-dots{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+/* DOTS */
+.palette-dots span{
+    width:8px;
+    height:8px;
+    border-radius:50%;
+}
+
+/* COLORS */
+.palette-dots span:nth-child(1){
+    background:var(--accent);
+}
+
+.palette-dots span:nth-child(2){
+    background:var(--accent-dark);
+}
+
+.palette-dots span:nth-child(3){
+    background:var(--ink);
+}
+
+.palette-dots span:nth-child(4){
+    background:var(--peach);
+}
+
+.palette-dots span:nth-child(5){
+    background:var(--taupe);
+}
+
+
+/* ==========================================================================
+   ADDED RESPONSIVE MEDIA QUERIES (NO BASE CODE TOUCHED)
+   ========================================================================== */
+
+/* Tablet & Smaller Desktop Viewports */
+@media (max-width: 1024px) {
+    .subjects-div {
+        width: 90%;
+        flex-wrap: wrap; /* Allows cards to wrap into the next row instead of breaking out */
+        gap: var(--space-4);
+    }
+
+    .subject-palette {
+        width: 90%;
+    }
+}
+
+/* Mobile Viewports */
+@media (max-width: 480px) {
+    .subjects-div {
+        width: 92%;
+        flex-direction: column; /* Stack cards vertically for vertical scrolling */
+        gap: var(--space-4);
+        margin: 2rem auto;
+    }
+
+    .subject-card {
+        width: 100%; /* Overrides the rigid 300px layout so cards adapt to any small screen */
+        max-width: 100%;
+        box-sizing: border-box;
+        padding: 16px;
+    }
+
+    .subject-palette {
+        width: 92%;
+        margin-top: 24px;
+        flex-direction: row; /* Keeps text and dots on the same line but optimizes distribution */
+        justify-content: space-between;
+    }
+
+    .palette-heading {
+        font-size: 11px;
+    }
+    
+    .palette-dots {
+        gap: 6px; /* Tightens dots slightly on small screens */
+    }
+}

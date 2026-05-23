@@ -1,0 +1,81 @@
+.lab-page {
+  width: 100%;
+  min-height: 100vh;
+  /* Assuming your main site background is dark */
+}
+
+.lab-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 10vh 20px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Header */
+.lab-header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.lab-header h1 {
+  font-size: 8rem;
+  font-weight: 800;
+  letter-spacing: -0.05em;
+  line-height: 1;
+  margin: 0;
+}
+
+.subtitle {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.3em;
+  color: #666;
+  margin-top: 1rem;
+}
+
+/* Data blocks for that "Tech/Lab" aesthetic */
+.lab-body {
+  width: 100%;
+  display: grid;
+  gap: 2rem;
+}
+
+.data-block {
+  border-left: 1px solid #333;
+  padding-left: 1.5rem;
+}
+
+.label {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.6rem;
+  color: #444;
+  margin-bottom: 0.4rem;
+  letter-spacing: 0.1em;
+}
+
+.value {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 1rem;
+  letter-spacing: 0.05em;
+}
+
+.footer-note {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.7rem;
+  color: #333;
+  margin-top: 2rem;
+}
+
+/* Animation */
+.slide-up {
+  animation: slideUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  opacity: 0;
+}
+
+@keyframes slideUp {
+  from { transform: translateY(60px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}

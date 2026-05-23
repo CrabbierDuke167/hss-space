@@ -1,0 +1,134 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
+@import "./styles/base.css";
+@import "./styles/navbar.css";
+@import "./styles/hero.css";
+
+:root {
+  /* =========================================================
+     COLORS
+     Warm brutalist / paper + clay palette
+  ========================================================= */
+
+  --bg: #F7F2ED;            /* warm parchment background */
+  --surface: #FDF8F4;       /* card / panels */
+  --ink: #140A04;           /* primary text (soft black-brown) */
+
+  --accent: #C4572A;        /* terracotta primary action */
+  --accent-dark: #8B3A1A;   /* hover / active accent */
+
+  --peach: #E8856A;         /* secondary subject highlight */
+  --taupe: #6B5040;         /* muted text / labels */
+  --cream: #EDE4DC;         /* soft UI fills (progress, bg blocks) */
+
+
+  /* =========================================================
+     TYPOGRAPHY
+  ========================================================= */
+
+  --font-main: "Space Grotesk", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+
+  /* font weights */
+  --fw-light: 300;
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-bold: 700;
+
+
+  /* =========================================================
+     SPACING SYSTEM (4px grid)
+  ========================================================= */
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 16px;
+  --space-4: 24px;
+  --space-5: 32px;
+  --space-6: 48px;
+  --space-7: 64px;
+  --space-8: 80px;
+
+
+  /* =========================================================
+     LAYOUT
+  ========================================================= */
+
+  --max-width: 1920px;
+  --container-padding: 64px;
+  --sidebar-width: 256px;
+
+
+  /* =========================================================
+     BORDERS (brutalist style)
+  ========================================================= */
+
+  --border: 1px solid var(--ink);
+  --border-light: 1px solid rgba(20, 10, 4, 0.2);
+  --radius: 0px; /* sharp edges only */
+
+
+  /* =========================================================
+     SHADOWS (minimal, almost flat)
+  ========================================================= */
+
+  --shadow-sm: 2px 2px 0px var(--ink);
+  --shadow-md: 4px 4px 0px var(--ink);
+
+
+  /* =========================================================
+     ANIMATION
+  ========================================================= */
+
+  --ease: cubic-bezier(0.22, 1, 0.36, 1); /* smooth natural deceleration */
+
+  --fast: 0.2s;
+  --normal: 0.5s;
+  --slow: 0.8s;
+
+
+  /* =========================================================
+     TRANSITIONS (standard UI motion)
+  ========================================================= */
+
+  --transition-fast: all 0.2s var(--ease);
+  --transition-normal: all 0.5s var(--ease);
+  --transition-slow: all 0.8s var(--ease);
+
+
+  /* =========================================================
+     UI STATE COLORS
+  ========================================================= */
+
+  --success: #2E6B3F; /* correct answer */
+  --error: #A33A2A;   /* wrong answer */
+  --info: #3A4A6B;    /* neutral highlight */
+
+
+  /* =========================================================
+     INTERACTION EFFECTS
+  ========================================================= */
+
+  --hover-lift: translateY(-4px);
+  --hover-press: translateY(1px);
+
+  --focus-outline: 2px solid var(--accent);
+}
+
+
+
+* {
+  box-sizing: border-box;
+  color: var(--ink);
+  margin: 0px;
+  padding: 0px;
+  list-style: none;
+  text-decoration: none;
+  border: none;
+  border-radius: var(--radius);
+}
+
+
+
+

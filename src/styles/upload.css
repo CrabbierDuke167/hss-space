@@ -1,0 +1,417 @@
+/* ==========================================================================
+   UPLOAD PAGE CONTAINERS & HEADERS
+   ========================================================================== */
+.upload-page {
+    width: 80%;
+    max-width: 800px; /* Keeps the form layout comfortably scannable on ultrawide screens */
+    margin: 6rem auto 4rem auto;
+    font-family: var(--font-mono);
+    color: var(--ink);
+}
+
+.upload-page h2 {
+    font-family: var(--font-main);
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.02em;
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+}
+
+.upload-metadata-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: center;
+    margin-bottom: var(--space-4);
+}
+
+/* ==========================================================================
+   TEXT INPUT FIELDS
+   ========================================================================== */
+input[type="text"] {
+    width: 280px;
+    padding: 10px 14px;
+    margin: 0;
+    background-color: var(--surface);
+    border: 2px solid var(--ink);
+    border-radius: var(--space-3);
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    color: var(--ink);
+    transition: all var(--transition-fast);
+    outline: none;
+    box-shadow: 2px 2px 0 var(--ink);
+}
+
+input[type="text"]:focus {
+    background-color: var(--cream);
+    transform: translate(-1px, -1px);
+    box-shadow: 4px 4px 0 var(--accent);
+    border-color: var(--accent);
+}
+
+input[type="text"]::placeholder {
+    color: #808080;
+    opacity: 0.7;
+}
+
+
+/* ==========================================================================
+   NATIVE SELECT DROPDOWNS
+   ========================================================================== */
+select {
+    width: 220px;
+    padding: 10px 36px 10px 14px; /* Room for custom arrow icon spacer */
+    margin: 0;
+    background-color: var(--surface);
+    border: 2px solid var(--ink);
+    border-radius: var(--space-3);
+    color: var(--ink);
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all var(--transition-fast);
+    outline: none;
+    cursor: pointer;
+    box-shadow: 2px 2px 0 var(--ink);
+    
+    /* Erase ugly platform default arrows */
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    
+    /* Clean inline dynamic svg geometric down arrow icon element */
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23000000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'></polyline></svg>");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+}
+
+select:focus {
+    transform: translate(-1px, -1px);
+    box-shadow: 4px 4px 0 var(--accent);
+    border-color: var(--accent);
+}
+
+select option {
+    background: var(--surface);
+    color: var(--ink);
+    font-family: var(--font-mono);
+    padding: var(--space-2);
+}
+
+
+/* ==========================================================================
+   BRUTALIST TOGGLE SYSTEM
+   ========================================================================== */
+.toggle-container {
+    position: relative;
+    display: flex;
+    width: fit-content;
+    background-color: var(--ink);
+    padding: 6px;
+    border-radius: var(--space-4);
+    margin: 2rem 0 var(--space-4) 0;
+    isolation: isolate;
+    box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.15);
+}
+
+.toggle-btn {
+    position: relative;
+    background: none;
+    border: none;
+    color: #808080;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    padding: 8px 20px;
+    cursor: pointer;
+    z-index: 2;
+    transition: color 0.25s ease;
+}
+
+.toggle-btn.active {
+    color: var(--surface);
+}
+
+.toggle-pill {
+    position: absolute;
+    top: 6px;
+    bottom: 6px;
+    width: calc(50% - 6px);
+    background-color: var(--accent);
+    border-radius: var(--space-3);
+    z-index: 1;
+    transition: transform 0.3s cubic-bezier(0.25, 1, 0.4, 1);
+    box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.2);
+}
+
+.toggle-pill.active-file {
+    transform: translateX(0);
+}
+
+.toggle-pill.active-text {
+    transform: translateX(100%);
+}
+
+
+/* ==========================================================================
+   DRAG & DROP CONTAINER ZONE
+   ========================================================================== */
+.drop-zone {
+    border: 2px dashed var(--ink);
+    padding: 50px 30px;
+    margin: var(--space-5) 0;
+    text-align: center;
+    background: var(--cream);
+    border-radius: var(--space-4);
+    transition: all var(--transition-slow);
+    cursor: pointer;
+    position: relative;
+}
+
+.drop-zone:hover, 
+.drop-zone:focus-within {
+    border: var(--border-light);
+    background: var(--surface);
+}
+
+.drop-zone p {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--ink);
+    margin: 0;
+}
+
+.drop-zone span {
+    display: block;
+    font-size: 0.8rem;
+    color: #808080;
+    margin-top: 8px;
+}
+
+input[type="file"] {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+    z-index: 2;
+}
+
+
+/* ==========================================================================
+   TEXT INPUT TYPE HOUSING SUB-SYSTEM
+   ========================================================================== */
+.text-input-zone {
+    width: 100%;
+    margin: var(--space-5) 0;
+}
+
+.text-input-zone textarea {
+    width: 100%;
+    height: 180px;
+    padding: 14px;
+    background-color: var(--surface);
+    border: 2px solid var(--ink);
+    border-radius: var(--space-4);
+    font-family: var(--font-mono);
+    font-size: 0.95rem;
+    color: var(--ink);
+    outline: none;
+    resize: vertical;
+    box-sizing: border-box;
+    box-shadow: 3px 3px 0 var(--ink);
+    transition: all var(--transition-fast);
+}
+
+.text-input-zone textarea:focus {
+    background-color: var(--cream);
+    box-shadow: 5px 5px 0 var(--accent);
+    border-color: var(--accent);
+}
+
+
+/* ==========================================================================
+   UPLOAD FILE METRICS QUEUE LIST
+   ========================================================================== */
+.file-list {
+    margin-top: var(--space-5);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+}
+
+.file-item {
+    padding: 12px 16px;
+    background-color: var(--surface);
+    border: 2px solid var(--ink);
+    border-radius: var(--space-3);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.05);
+    animation: fileEntry 0.25s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+@keyframes fileEntry {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.file-item .file-name {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--ink);
+}
+
+.file-item .remove-btn {
+    background: none;
+    border: none;
+    color: var(--accent-dark, #ff4a4a);
+    cursor: pointer;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    padding: 4px 8px;
+    border-radius: var(--space-2);
+    transition: background 0.2s ease;
+}
+
+.file-item .remove-btn:hover {
+    background: rgba(255, 0, 0, 0.08);
+}
+
+
+/* ==========================================================================
+   VALIDATION WARNING MESSAGES
+   ========================================================================== */
+.validation-warning {
+    margin-top: 1.25rem;
+    padding: 10px 14px;
+    background-color: rgba(255, 0, 0, 0.03);
+    border-left: 4px solid var(--accent-dark, #ff4a4a);
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--accent-dark, #ff4a4a);
+    border-radius: 0 var(--space-2) var(--space-2) 0;
+}
+
+
+/* ==========================================================================
+   SUBMIT ACTION OPERATION BUTTON
+   ========================================================================== */
+.upload-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin: 2rem 0;
+    padding: 12px 24px;
+    background: var(--accent);
+    color: var(--surface);
+    border: 2px solid var(--ink);
+    border-radius: var(--space-3);
+    font-family: var(--font-main);
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    box-shadow: 3px 3px 0 var(--ink);
+}
+
+.upload-btn:hover:not(:disabled) {
+    transform: translate(-2px, -2px);
+    background: var(--peach, #ffb088); 
+    box-shadow:
+        5px 5px 0 var(--ink),
+        7px 7px 0 rgba(0, 0, 0, 0.10);
+}
+
+.upload-btn:active:not(:disabled) {
+    transform: translate(1px, 1px);
+    box-shadow: 2px 2px 0 var(--ink);
+}
+
+.upload-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    box-shadow: none;
+    transform: none;
+}
+
+
+/* ==========================================================================
+   ADDED RESPONSIVE MEDIA QUERIES
+   ========================================================================== */
+
+@media (max-width: 768px) {
+    .upload-page {
+        width: 90%;
+        margin: 4rem auto 2rem auto;
+    }
+
+    input[type="text"], select {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .upload-page {
+        width: 92%;
+        margin: 3rem auto 2rem auto;
+    }
+
+    .upload-page h2 {
+        font-size: 1.4rem;
+    }
+
+    .upload-metadata-row {
+        gap: 0.75rem;
+    }
+
+    input[type="text"], 
+    select {
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+
+    .toggle-container {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .toggle-btn {
+        flex: 1;
+        text-align: center;
+        padding: 8px 0;
+    }
+
+    .drop-zone {
+        padding: 35px 16px;
+    }
+
+    .file-item {
+        padding: 10px 12px;
+    }
+
+    .file-item .file-name {
+        word-break: break-all;
+        font-size: 0.8rem;
+    }
+
+    .validation-warning {
+        box-sizing: border-box;
+        width: 100%;
+    }
+
+    .upload-btn {
+        width: 100%;
+        margin: 1.5rem 0;
+        box-sizing: border-box;
+    }
+}

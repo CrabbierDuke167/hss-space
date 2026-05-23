@@ -1,0 +1,472 @@
+/* ==========================================================================
+   VERTICAL CENTERING MATRIX (TOP TO BOTTOM MECHANICS)
+   ========================================================================== */
+.resource-page {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    box-sizing: border-box;
+}
+
+.resource-sub-wrapper {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 40px 0;
+    
+    /* Pushes content right into the true vertical center of the viewport */
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* ==========================================================================
+   CORE GRID & CONTAINER STRUCTURES
+   ========================================================================== */
+.resource-display-div {
+    display: block;
+    width: 80%;
+    margin: 0 auto 20px auto;
+    animation: consoleSlideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.subjects-div {
+    display: flex;
+    width: 80%;
+    margin: 1rem auto;
+    gap: var(--space-8);
+    justify-content: center;
+    align-items: center;
+    animation: consoleSlideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* ==========================================================================
+   RETRO BASE CARDS & FIXED HOVER ACTIONS
+   ========================================================================== */
+.subject-card {
+    border: var(--border);
+    flex: 1;
+    max-width: 300px;
+    height: fit-content;
+    padding: 20px;
+    background-color: transparent;
+    border-bottom: 20px solid var(--accent);
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    transition: var(--transition-slow);
+}
+
+/* Hover State: Changes background surface to --info for high readability contrast */
+.subject-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-md);
+    background-color: var(--info);
+    border-color: var(--accent);
+    border-bottom: 20px solid var(--accent-dark);
+}
+
+/* Typography contrast fixes isolated explicitly to the subject cards on hover */
+.subject-card:hover .subject-name {
+    color: var(--cream, #ffffff);
+}
+
+.subject-card:hover .subject-glaze,
+.subject-card:hover .question-count {
+    color: var(--cream, #ffffff);
+    opacity: 0.85;
+}
+
+/* Modifier rules for static top informational modules - completely strips interaction states */
+.view-header-card {
+    max-width: 100% !important;
+    width: 100% !important;
+    cursor: default !important;
+}
+.view-header-card:hover {
+    transform: none !important;
+    box-shadow: none !important;
+    background-color: transparent !important;
+    border-bottom: 20px solid var(--accent) !important;
+}
+.view-header-card:hover .subject-name {
+    color: inherit !important;
+}
+.view-header-card:hover .subject-glaze,
+.view-header-card:hover .question-count {
+    color: var(--taupe) !important;
+    opacity: 1 !important;
+}
+
+/* CARD INNER MEMBERS */
+.subject-icon {
+    background-color: var(--cream);
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    margin-bottom: var(--space-2);
+}
+
+.subject-glaze, .question-count {
+    font-size: 12px;
+    color: var(--taupe);
+    margin-bottom: var(--space-2);
+    margin-top: var(--space-1);
+    font-family: var(--font-mono), monospace;
+    transition: color 0.2s ease;
+}
+
+.subject-name {
+    font-size: var(--font-mono);
+    font-weight: 600;
+    transition: color 0.2s ease;
+}
+
+/* RETRO CONTROL BUTTON STRUTS */
+.resource-back-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: transparent;
+    border: 1px solid var(--taupe);
+    color: var(--taupe);
+    font-family: var(--font-mono), monospace;
+    font-size: 12px;
+    cursor: pointer;
+    width: fit-content;
+    padding: 8px 16px;
+    
+    /* Perfect flush left alignment to match the main layout columns */
+    margin: 24px auto 24px 10%;
+    transition: all 0.2s ease;
+}
+.resource-back-btn:hover {
+    color: var(--cream);
+    background-color: var(--ink);
+    border-color: var(--ink);
+    font-weight: 500;
+}
+
+/* ==========================================================================
+   CHAPTER TRACK MATRIX STACKS
+   ========================================================================== */
+.chapter-directory-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 80%;
+    margin: 10px auto 0 auto;
+    animation: consoleSlideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.chapter-item-row {
+    border: var(--border);
+    padding: 16px 20px;
+    background-color: transparent;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--font-mono), monospace;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.chapter-item-row:hover {
+    background-color: var(--info);
+    border-color: var(--accent);
+    transform: translateX(6px);
+}
+
+.chapter-item-row:hover .chapter-title-text {
+    color: var(--cream);
+}
+
+.chapter-item-row:hover .chapter-meta-icon {
+    color: var(--accent-dark);
+}
+
+.chapter-row-left {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.chapter-meta-icon {
+    color: var(--taupe);
+    transition: color 0.2s ease;
+}
+
+.chapter-title-text {
+    font-size: 14px;
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+.chapter-action-badge {
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 0.5px;
+    font-weight: 600;
+}
+
+/* ==========================================================================
+   SANDBOX FUTURE CONNECTION CONSOLE INTERFACE
+   ========================================================================== */
+.placeholder-sandbox-container {
+    width: 80%;
+    margin: 20px auto 0 auto;
+    animation: consoleSlideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.sandbox-terminal-alert {
+    border: 1px dashed var(--taupe);
+    background: rgba(0, 0, 0, 0.1);
+    padding: 40px 30px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-mono), monospace;
+}
+
+.terminal-icon {
+    color: var(--info);
+    margin-bottom: 14px;
+    animation: radarPulse 2s infinite ease-in-out;
+}
+
+.sandbox-terminal-alert h4 {
+    margin: 0 0 10px 0;
+    font-size: 14px;
+    letter-spacing: 1px;
+    color: var(--info);
+}
+
+.sandbox-terminal-alert p {
+    margin: 0;
+    font-size: 12px;
+    color: var(--taupe);
+    line-height: 1.6;
+    max-width: 500px;
+}
+
+/* ==========================================================================
+   PALETTE RUNNER BASE DECORATIONS
+   ========================================================================== */
+.subject-palette {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 80%;
+    margin: 40px auto 0 auto;
+    padding: 10px 0;
+}
+
+.palette-heading {
+    font-size: 12px;
+    color: var(--info);
+    font-family: var(--font-mono), monospace;
+    letter-spacing: 0.5px;
+}
+
+.palette-dots {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.palette-dots span {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+}
+
+.palette-dots span:nth-child(1) { background: var(--accent); }
+.palette-dots span:nth-child(2) { background: var(--accent-dark); }
+.palette-dots span:nth-child(3) { background: var(--ink); }
+.palette-dots span:nth-child(4) { background: var(--peach); }
+.palette-dots span:nth-child(5) { background: var(--taupe); }
+
+
+/* ==========================================================================
+   QUESTION CARD COMPONENT
+   ========================================================================== */
+
+.questions-list-container {
+    display: flex;
+    flex-direction: column;
+    gap: 30px; /* Sufficient gap between cards */
+    width: 80%;
+    margin: 20px auto;
+}
+
+.question-card {
+    border: var(--border);
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    border-left: 6px solid var(--accent);
+    background: transparent;
+    transition: all 0.25s ease;
+}
+
+.question-card:hover {
+    background: rgba(255, 255, 255, 0.03);
+    border-left-color: var(--accent-dark);
+    transform: translateX(4px);
+}
+
+.question-header {
+    font-family: var(--font-mono), monospace;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    color: var(--accent);
+    font-weight: 800;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.question-body {
+    font-size: 15px;
+    line-height: 1.7;
+    font-family: var(--font-mono), monospace;
+    color: var(--ink);
+    opacity: 0.9;
+    margin: 0;
+}
+
+
+/* ==========================================================================
+   ANIMATIONS
+   ========================================================================== */
+@keyframes consoleSlideIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes radarPulse {
+    0%, 100% { opacity: 0.5; transform: scale(0.96); }
+    50% { opacity: 1; transform: scale(1.04); }
+}
+
+/* ==========================================================================
+   RESPONSIVE LAYOUT MATRIX
+   ========================================================================== */
+
+/* Medium Desktops & Tablets (Landscape) */
+@media (max-width: 1024px) {
+    .resource-display-div,
+    .subjects-div,
+    .chapter-directory-grid,
+    .questions-list-container,
+    .placeholder-sandbox-container,
+    .subject-palette {
+        width: 90%;
+    }
+
+    .resource-back-btn {
+        margin-left: 5%;
+    }
+
+    .subjects-div {
+        flex-wrap: wrap; 
+        gap: var(--space-4);
+    }
+
+    .subject-card {
+        flex: none;
+        width: calc(50% - (var(--space-4) / 2));
+        max-width: 100%;
+    }
+}
+
+/* Tablets & Small Devices (Portrait) */
+@media (max-width: 768px) {
+    .resource-sub-wrapper {
+        padding: 24px 0;
+    }
+
+    .chapter-item-row {
+        padding: 14px 16px;
+    }
+
+    .chapter-title-text {
+        font-size: 13px;
+    }
+
+    .chapter-action-badge {
+        font-size: 10px;
+    }
+
+    .question-card {
+        padding: 20px;
+    }
+    
+    .question-body {
+        font-size: 14px;
+    }
+}
+
+/* Mobile Devices */
+@media (max-width: 480px) {
+    .resource-display-div,
+    .subjects-div,
+    .chapter-directory-grid,
+    .questions-list-container,
+    .placeholder-sandbox-container,
+    .subject-palette {
+        width: 92%;
+    }
+
+    .chapter-action-badge {
+        font-size: 8px;
+        width: 40px;
+        padding: 2px 2rem;
+    }
+
+    .resource-back-btn {
+        margin: 16px auto 16px 4%;
+    }
+
+    .subjects-div {
+        flex-direction: column; 
+        gap: var(--space-4);
+        margin: 1.5rem auto;
+    }
+
+    .subject-card {
+        width: 100%; 
+        padding: 16px;
+    }
+
+    .questions-list-container {
+        gap: 20px;
+    }
+
+    .chapter-item-row:hover {
+        transform: translateX(3px);
+    }
+
+    .subject-palette {
+        margin-top: 24px;
+        flex-direction: row; 
+        justify-content: space-between;
+    }
+
+    .palette-heading {
+        font-size: 11px;
+    }
+    
+    .palette-dots {
+        gap: 6px; 
+    }
+}

@@ -1,0 +1,100 @@
+/* GLOBAL RESET */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ROOT WRAPPER */
+.home-page {
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    background: var(--background);
+}
+
+/* NOISE LAYER */
+.home-page::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+
+    background: rgba(0, 0, 0, 0.03);
+    background-image: radial-gradient(rgba(0,0,0,0.25) 1px, transparent 1px);
+    background-size: 5px 5px;
+    opacity: 0.2;
+
+    pointer-events: none;
+}
+
+/* KEEP CONTENT ABOVE NOISE */
+.home-page > * {
+    position: relative;
+    z-index: 1;
+}
+
+/* OPTIONAL BODY DEFAULT */
+body {
+    font-family: var(--font-main);
+    background: var(--background);
+    color: var(--ink);
+}
+
+/* ==========================================================================
+   ADDED RESPONSIVE MEDIA QUERIES (NO BASE CODE TOUCHED)
+   ========================================================================== */
+
+/* Tablet & Smaller Desktop Viewports */
+@media (max-width: 768px) {
+    .upload-page {
+        width: 90%;
+        margin: 4rem auto 2rem auto;
+    }
+}
+
+/* Mobile Viewports */
+@media (max-width: 480px) {
+    .upload-page {
+        width: 92%;
+        margin: 3rem auto 2rem auto;
+    }
+
+    .upload-page h2 {
+        font-size: 1.4rem;
+    }
+
+    /* Force interactive input fields to span fully without breaking container bounds */
+    input[type="text"], 
+    select {
+        width: 100%;
+        max-width: 100%;
+        margin: var(--space-2) 0 var(--space-4) 0; /* Clear left margin shift on mobile */
+        box-sizing: border-box;
+    }
+
+    .drop-zone {
+        padding: 35px 16px;
+        margin: var(--space-4) 0;
+    }
+
+    .file-item {
+        flex-direction: row;
+        align-items: center;
+        gap: var(--space-2);
+        padding: 10px 12px;
+    }
+
+    .file-item .file-name {
+        word-break: break-all; /* Prevents overflow from ultra-long filenames */
+        font-size: 0.8rem;
+    }
+
+    .upload-btn {
+        width: 100%;
+        margin: 1.5rem 0;
+        box-sizing: border-box;
+    }
+}
