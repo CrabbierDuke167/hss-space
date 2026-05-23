@@ -146,6 +146,7 @@ export const Subjects = () => {
               }
             >
 
+
               <div className="subject-icon">
                 {subject?.icon}
               </div>

@@ -5,6 +5,7 @@ import "../index.css";
 import "../styles/home.css";
 import { Subjects } from "../components/Subjects";
 
+
 export default function Home() {
   return (
     <div className="home-page">

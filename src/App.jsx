@@ -9,6 +9,7 @@ import Lab from "./pages/Lab";
 import Saved from "./pages/Saved";
 import Auth from "./pages/Auth";
 
+
 // A secure gatekeeper component to shield private pages
 function ProtectedRoute({ session, children }) {
   if (!session) {

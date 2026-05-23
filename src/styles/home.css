@@ -6,6 +6,7 @@
   will-change: transform, opacity;
 }
 
+
 /* Smooth slide-up transition config */
 @keyframes slideUpFade {
   from {

@@ -102,6 +102,7 @@
     box-shadow: 2px 2px 0 var(--ink);
 }
 
+
 /* RESPONSIVE */
 @media (max-width: 768px) {
     .hero { width: 90%; padding: var(--space-4); }

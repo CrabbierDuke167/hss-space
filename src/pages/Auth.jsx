@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { supabase } from "../lib/supabase-client"; // Points directly to your src/lib path
 import "../styles/auth.css";
 
+
 // LOGIN ARTWORK (Simpson-style grid mesh)
 const LOGIN_CHARACTER_ART = `                      ██                                            ██                      
                     ██▓▓▓▓████                                    ████▓▓▓▓██                    

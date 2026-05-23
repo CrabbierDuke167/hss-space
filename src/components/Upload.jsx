@@ -51,6 +51,7 @@ export default function Upload() {
     <div className="upload-page">
       <h2>UPLOAD CENTER</h2>
 
+
       <div className="upload-metadata-row">
         {/* Subject Selector */}
         <select value={subject} onChange={(e) => { setSubject(e.target.value); setChapter(""); }}>

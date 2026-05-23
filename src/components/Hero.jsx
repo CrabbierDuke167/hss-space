@@ -6,6 +6,7 @@ export default function Hero() {
   const [question, setQuestion] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  
   useEffect(() => {
     const fetchDailyQuestion = async () => {
       setLoading(true);

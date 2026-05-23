@@ -71,6 +71,7 @@ export default function Navbar() {
     setIsPopupOpen(false);
   };
 
+  
   return (
     <header className="navbar">
       

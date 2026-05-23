@@ -2,6 +2,7 @@ import React from "react";
 import Navbar from "../components/Navbar";
 import "../styles/lab.css";
 
+
 export default function Lab() {
   return (
     <div className="lab-page">

@@ -86,6 +86,7 @@ export const ResourceComponent = () => {
     );
   }
 
+  
   // VIEW 1: CHAPTER EXPLORER
   if (selectedSubject && RESOURCE_MANIFEST[selectedSubject]) {
     const subjectData = RESOURCE_MANIFEST[selectedSubject];
