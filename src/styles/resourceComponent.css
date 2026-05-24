@@ -41,8 +41,18 @@
     animation: consoleSlideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
+/* --- NEW: ENHANCED GRID FOR THE REWRITTEN CARDS --- */
+.subjects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: var(--space-4);
+    width: 80%;
+    margin: 1rem auto;
+    animation: consoleSlideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
 /* ==========================================================================
-   RETRO BASE CARDS & FIXED HOVER ACTIONS
+   RETRO BASE CARDS & FIXED HOVER ACTIONS (USED BY VIEW HEADERS)
    ========================================================================== */
 .subject-card {
     border: var(--border);
@@ -59,7 +69,6 @@
     transition: var(--transition-slow);
 }
 
-/* Hover State: Changes background surface to --info for high readability contrast */
 .subject-card:hover {
     transform: translateY(-5px);
     box-shadow: var(--shadow-md);
@@ -68,7 +77,6 @@
     border-bottom: 20px solid var(--accent-dark);
 }
 
-/* Typography contrast fixes isolated explicitly to the subject cards on hover */
 .subject-card:hover .subject-name {
     color: var(--cream, #ffffff);
 }
@@ -79,11 +87,12 @@
     opacity: 0.85;
 }
 
-/* Modifier rules for static top informational modules - completely strips interaction states */
+/* Modifier rules for static top informational modules - strips interaction states */
 .view-header-card {
     max-width: 100% !important;
     width: 100% !important;
     cursor: default !important;
+    border-radius: var(--radius) !important;
 }
 .view-header-card:hover {
     transform: none !important;
@@ -122,12 +131,147 @@
 }
 
 .subject-name {
-    font-size: var(--font-mono);
+    font-size: 16px;
     font-weight: 600;
     transition: color 0.2s ease;
 }
 
-/* RETRO CONTROL BUTTON STRUTS */
+
+/* ==========================================================================
+   NEW: HIGH-FIDELITY BRUTALIST ENHANCED CARDS
+   ========================================================================== */
+.subject-card-enhanced {
+    background-color: var(--surface);
+    border: var(--border);
+    box-shadow: var(--shadow-md);
+    padding: var(--space-4);
+    border-radius: var(--radius); /* Ensures strict boxy corners */
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    box-sizing: border-box;
+    transition: var(--transition-fast);
+}
+
+.subject-card-enhanced:hover {
+    transform: translateY(-4px) translateX(-4px);
+    box-shadow: 8px 8px 0px var(--ink);
+    background-color: var(--cream);
+}
+
+/* Meta Section */
+.subject-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: var(--border-light);
+    padding-bottom: var(--space-2);
+}
+
+.sys-badge {
+    font-family: var(--font-mono), monospace;
+    font-size: 0.75rem;
+    font-weight: var(--fw-bold);
+    color: var(--accent);
+    background: rgba(196, 87, 42, 0.08);
+    padding: 2px 6px;
+}
+
+.mod-count {
+    font-family: var(--font-mono), monospace;
+    font-size: 0.75rem;
+    color: var(--taupe);
+    font-weight: var(--fw-medium);
+}
+
+/* Core Body Layout */
+.subject-card-body {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+}
+
+.icon-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    background-color: rgba(20, 10, 4, 0.04);
+    border: 1px solid rgba(20, 10, 4, 0.1);
+    color: var(--ink);
+}
+
+.title-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.title-wrapper h3 {
+    font-family: var(--font-main), sans-serif;
+    font-size: 1.35rem;
+    font-weight: var(--fw-bold);
+    margin: 0;
+    color: var(--ink);
+    letter-spacing: 0.02em;
+}
+
+.glaze-text {
+    font-family: var(--font-mono), monospace;
+    font-size: 0.72rem;
+    color: var(--taupe);
+    margin: 4px 0 0 0;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+/* Secure Connection Footer Actions */
+.subject-card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: var(--space-2);
+    margin-top: auto;
+}
+
+.status-indicator {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--font-mono), monospace;
+    font-size: 0.7rem;
+    color: var(--success);
+    font-weight: var(--fw-bold);
+}
+
+.blink-dot {
+    width: 6px;
+    height: 6px;
+    background-color: var(--success);
+    border-radius: 50%;
+    animation: radarPulse 2s infinite ease-in-out;
+}
+
+.action-arrow {
+    font-family: var(--font-mono), monospace;
+    font-size: 0.8rem;
+    color: var(--ink);
+    font-weight: var(--fw-bold);
+    opacity: 0;
+    transform: translateX(-10px);
+    transition: var(--transition-fast);
+}
+
+.subject-card-enhanced:hover .action-arrow {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+
+/* ==========================================================================
+   RETRO CONTROL BUTTON STRUTS
+   ========================================================================== */
 .resource-back-btn {
     display: flex;
     align-items: center;
@@ -145,12 +289,14 @@
     margin: 24px auto 24px 10%;
     transition: all 0.2s ease;
 }
+
 .resource-back-btn:hover {
     color: var(--cream);
     background-color: var(--ink);
     border-color: var(--ink);
     font-weight: 500;
 }
+
 
 /* ==========================================================================
    CHAPTER TRACK MATRIX STACKS
@@ -169,10 +315,11 @@
     padding: 16px 20px;
     background-color: transparent;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
     font-family: var(--font-mono), monospace;
     cursor: pointer;
+    gap: clamp(1rem, 2.5vw, 2rem);
     transition: all 0.2s ease;
 }
 
@@ -213,6 +360,7 @@
     letter-spacing: 0.5px;
     font-weight: 600;
 }
+
 
 /* ==========================================================================
    SANDBOX FUTURE CONNECTION CONSOLE INTERFACE
@@ -256,6 +404,7 @@
     max-width: 500px;
 }
 
+
 /* ==========================================================================
    PALETTE RUNNER BASE DECORATIONS
    ========================================================================== */
@@ -297,11 +446,10 @@
 /* ==========================================================================
    QUESTION CARD COMPONENT
    ========================================================================== */
-
 .questions-list-container {
     display: flex;
     flex-direction: column;
-    gap: 30px; /* Sufficient gap between cards */
+    gap: 30px; 
     width: 80%;
     margin: 20px auto;
 }
@@ -315,6 +463,7 @@
     border-left: 6px solid var(--accent);
     background: transparent;
     transition: all 0.25s ease;
+    box-sizing: border-box;
 }
 
 .question-card:hover {
@@ -344,6 +493,68 @@
     margin: 0;
 }
 
+.solved-card {
+    border-left-color: #00ff78 !important; /* Green success indicator */
+    opacity: 0.7;
+    background: rgba(0, 255, 120, 0.05) !important;
+}
+
+/* --- NEW: UNPOPULATED MATRIX CARD STYLING --- */
+.empty-state-card {
+    border: 1px dashed var(--taupe) !important;
+    border-left: 6px dashed var(--taupe) !important;
+    background: rgba(20, 10, 4, 0.02) !important;
+    padding: var(--space-5) !important;
+}
+
+.loading-stream-text {
+    font-family: var(--font-mono), monospace;
+    color: var(--taupe);
+    font-size: 13px;
+    letter-spacing: 0.05em;
+}
+
+/* ACTION BUTTON UTILITIES */
+.q-action-row {
+    display: flex;
+    gap: 10px;
+    margin-top: 12px;
+    justify-content: flex-end;
+}
+
+.q-btn {
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    border: 1px solid var(--taupe);
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.q-btn:hover {
+    transform: scale(1.1);
+    border-color: var(--accent);
+}
+
+.q-btn.hint { color: var(--taupe); }
+.q-btn.solved { color: var(--taupe); }
+
+.q-btn.hint:hover {
+    background: rgba(255, 215, 0, 0.2);
+    color: #ffd700;
+    border-color: #ffd700;
+}
+
+.q-btn.solved:hover {
+    background: rgba(0, 255, 120, 0.2);
+    color: #00ff78;
+    border-color: #00ff78;
+}
+
 
 /* ==========================================================================
    ANIMATIONS
@@ -358,6 +569,7 @@
     50% { opacity: 1; transform: scale(1.04); }
 }
 
+
 /* ==========================================================================
    RESPONSIVE LAYOUT MATRIX
    ========================================================================== */
@@ -366,6 +578,7 @@
 @media (max-width: 1024px) {
     .resource-display-div,
     .subjects-div,
+    .subjects-grid,
     .chapter-directory-grid,
     .questions-list-container,
     .placeholder-sandbox-container,
@@ -382,6 +595,11 @@
         gap: var(--space-4);
     }
 
+    .subjects-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--space-4);
+    }
+
     .subject-card {
         flex: none;
         width: calc(50% - (var(--space-4) / 2));
@@ -393,6 +611,10 @@
 @media (max-width: 768px) {
     .resource-sub-wrapper {
         padding: 24px 0;
+    }
+
+    .subjects-grid {
+        grid-template-columns: repeat(2, 1fr);
     }
 
     .chapter-item-row {
@@ -416,11 +638,11 @@
     }
 }
 
-
 /* Mobile Devices */
 @media (max-width: 480px) {
     .resource-display-div,
     .subjects-div,
+    .subjects-grid,
     .chapter-directory-grid,
     .questions-list-container,
     .placeholder-sandbox-container,
@@ -438,15 +660,22 @@
         margin: 16px auto 16px 4%;
     }
 
-    .subjects-div {
+    .subjects-div,
+    .subjects-grid {
+        grid-template-columns: 1fr;
         flex-direction: column; 
         gap: var(--space-4);
         margin: 1.5rem auto;
     }
 
-    .subject-card {
+    .subject-card,
+    .subject-card-enhanced {
         width: 100%; 
         padding: 16px;
+    }
+
+    .title-wrapper h3 {
+        font-size: 1.2rem;
     }
 
     .questions-list-container {
@@ -455,6 +684,10 @@
 
     .chapter-item-row:hover {
         transform: translateX(3px);
+    }
+
+    .book-icon {
+        display: none; 
     }
 
     .subject-palette {

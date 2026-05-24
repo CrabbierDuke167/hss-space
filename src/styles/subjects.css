@@ -135,6 +135,7 @@
         width: 100%; /* Overrides the rigid 300px layout so cards adapt to any small screen */
         max-width: 100%;
         box-sizing: border-box;
+        background-color: var(--peach); /* Adds a soft background to differentiate cards on small screens */
         padding: 16px;
     }
 

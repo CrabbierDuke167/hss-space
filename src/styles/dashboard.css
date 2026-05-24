@@ -1,91 +1,90 @@
-/* ===== Full screen perfect centering ===== */
-
-.coming-soon-wrapper{
-    max-height:100vh;
-    width:100%;
-
-    position:absolute;
-    top:50%;
-    right:50%;   /* fixed typo */
-    
-    transform:translate(50%, -50%); /* your centering method */
-
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-
-    padding:clamp(1rem,3vw,2rem);
-    text-align:center;
-
-    overflow:hidden;
-    box-sizing:border-box;
+/* ===== Dashboard Page Base ===== */
+.dashboard-page {
+  min-height: 100vh;
+  background-color: var(--bg);
+  color: var(--ink);
+  overflow-x: hidden;
 }
 
+/* ===== Adjusted Animation Container & Smart Grid Layout ===== */
+.content-slide-up {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--space-4);
+  
+  /* Subtle, fast fade-in with minimal focus-in blur */
+  animation: pageReveal 0.6s var(--ease) forwards;
 
-/* ===== ANIMATION WRAPPER (IMPORTANT FIX) ===== */
-.content-slide-up{
-    width:min(700px,100%);
-    margin:auto;
-
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-
-    animation:pageReveal .8s cubic-bezier(.22,1,.36,1) forwards;
+  /* --- NEW: Smart Layout Architecture --- */
+  display: grid;
+  /* Mobile-first: Everything stacks in 1 single column */
+  grid-template-columns: 1fr; 
+  /* Uses your existing variable for perfect brutalist spacing between cards */
+  gap: var(--space-4); 
 }
 
-
-/* ===== Page animation ===== */
-
-@keyframes pageReveal{
-    0%{
-        opacity:0;
-        transform:translateY(25px) scale(.98);
-        filter:blur(10px);
-    }
-
-    100%{
-        opacity:1;
-        transform:translateY(0) scale(1);
-        filter:blur(0);
-    }
+/* Force the FIRST component (DashboardComponent) to ALWAYS take up 100% 
+  of the width, regardless of screen size. 
+*/
+.content-slide-up > :nth-child(1) {
+  grid-column: 1 / -1;
 }
 
-
-/* ===== stagger items ===== */
-
-.animate-item{
-    opacity:0;
-    display:inline-block;
-    animation:itemReveal .7s cubic-bezier(.22,1,.36,1) forwards;
+/* --- DESKTOP 70/30 SPLIT --- */
+/* Kicks in on screens wider than 1024px (Tablets/Laptops/Desktops) */
+@media (min-width: 1024px) {
+  .content-slide-up {
+    /* Component Two gets 7 fractions of the space (70%)
+      Component Three gets 3 fractions of the space (30%)
+    */
+    grid-template-columns: 7fr 3fr;
+  }
 }
 
-@keyframes itemReveal{
-    from{
-        opacity:0;
-        transform:translateY(15px);
-    }
-    to{
-        opacity:1;
-        transform:translateY(0);
-    }
+/* ===== Refined Animation ===== */
+@keyframes pageReveal {
+  0% {
+    opacity: 0;
+    transform: translateY(15px);
+    filter: blur(2px); /* Very subtle tease, not distracting */
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
 }
 
-
-.delay-1{animation-delay:.12s;}
-.delay-2{animation-delay:.24s;}
-.delay-3{animation-delay:.36s;}
-.delay-4{animation-delay:.48s;}
-
-
-/* text scaling */
-
-h1{
-    font-size:clamp(2rem,6vw,4rem);
+/* ===== Text/Utility Defaults ===== */
+h1 {
+  font-size: clamp(2rem, 6vw, 4rem);
+  font-family: var(--font-main);
 }
 
-p{
-    font-size:clamp(.95rem,2vw,1.15rem);
+p {
+  font-size: clamp(0.95rem, 2vw, 1.15rem);
+  font-family: var(--font-main);
+  line-height: 1.6;
 }
+
+/* Keep these if you have specific staggered elements inside the dashboard */
+.animate-item {
+  opacity: 0;
+  animation: itemReveal 0.6s var(--ease) forwards;
+}
+
+@keyframes itemReveal {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.delay-1 { animation-delay: 0.1s; }
+.delay-2 { animation-delay: 0.2s; }
+.delay-3 { animation-delay: 0.3s; }

@@ -1,0 +1,174 @@
+.container {
+  background-color: var(--surface);
+  border: var(--border);
+  box-shadow: var(--shadow-md);
+  padding: var(--space-4);
+  font-family: var(--font-main);
+  color: var(--ink);
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.title {
+  margin-top: 0;
+  margin-bottom: var(--space-2);
+  font-weight: var(--fw-bold);
+  font-size: 1.5rem;
+}
+
+.loaderWrapper {
+  height: var(--space-4);
+  margin-bottom: var(--space-3);
+}
+
+.loader {
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  color: var(--taupe);
+}
+
+.graphWrapper {
+  display: flex;
+  height: 280px;
+  position: relative;
+  gap: var(--space-3);
+}
+
+/* Y Axis Styling */
+.yAxis {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: calc(100% - 32px); /* Matches bar track height, leaves room for X labels */
+  min-width: 32px;
+  position: relative;
+}
+
+.yTick {
+  display: flex;
+  align-items: center;
+  position: relative;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--taupe);
+  width: 100%;
+  height: 0; /* Centered on the grid line */
+}
+
+.yTick span {
+  width: 24px;
+  text-align: right;
+  padding-right: var(--space-2);
+  background: var(--surface); /* Mask the line behind text */
+  z-index: 2;
+}
+
+.gridLine {
+  position: absolute;
+  left: 32px; /* Offset past the text */
+  width: calc(100vw - 120px); 
+  max-width: 680px;
+  height: 1px;
+  background-color: var(--border-light);
+  z-index: 1;
+}
+
+/* Bars Area */
+.barsContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-grow: 1;
+  height: 100%;
+  position: relative;
+  z-index: 2;
+}
+
+.barGroup {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  flex: 1;
+  margin: 0 var(--space-1);
+}
+
+.barTrack {
+  width: 100%;
+  max-width: 48px;
+  flex-grow: 1;
+  display: flex;
+  align-items: flex-end;
+  position: relative;
+}
+
+.barFill {
+  width: 100%;
+  background-color: var(--accent);
+  border: var(--border);
+  border-bottom: none;
+  transition: var(--transition-normal);
+  cursor: pointer;
+  position: relative;
+}
+
+.barFill:hover {
+  background-color: var(--accent-dark);
+  transform: translateY(-2px); /* Subtle lift */
+}
+
+/* Hover Tooltip via CSS */
+.barFill::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  top: -36px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--ink);
+  color: var(--surface);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius); /* Stays sharp based on your variables */
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--fast) var(--ease);
+  z-index: 10;
+}
+
+.barFill:hover::after {
+  opacity: 1;
+}
+
+/* X Axis Labels */
+.xAxisLabel {
+  margin-top: var(--space-2);
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  color: var(--ink);
+  font-weight: var(--fw-medium);
+  text-transform: uppercase;
+  height: 24px;
+  display: flex;
+  align-items: center;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .graphWrapper {
+    height: 240px;
+    gap: var(--space-1);
+  }
+  .barTrack {
+    max-width: 32px;
+  }
+  .xAxisLabel {
+    font-size: 0.7rem;
+  }
+  .gridLine {
+    width: calc(100vw - 80px);
+  }
+}

@@ -57,7 +57,7 @@ export default function Hero() {
       {loading ? <div className="daily-question">INITIALIZING SYSTEM...</div> : question ? (
         <>
           <div className="daily-question-data">
-            <p>#SUBJECT_UNKNOWN // CLASS 12 // #CHAPTER_{question.chapter_id}</p>
+            <p>[ GENERAL STUDIES ] // CLASS 12 // #CHAPTER_{question.chapter_id}</p>
           </div>
           <div className="daily-question">{question.question_text}</div>
           <div className="hero-btn-div">

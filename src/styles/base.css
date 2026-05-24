@@ -16,19 +16,7 @@
 }
 
 /* NOISE LAYER */
-.home-page::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    z-index: 0;
 
-    background: rgba(0, 0, 0, 0.03);
-    background-image: radial-gradient(rgba(0,0,0,0.25) 1px, transparent 1px);
-    background-size: 5px 5px;
-    opacity: 0.2;
-
-    pointer-events: none;
-}
 
 /* KEEP CONTENT ABOVE NOISE */
 .home-page > * {
@@ -41,6 +29,20 @@ body {
     font-family: var(--font-main);
     background: var(--background);
     color: var(--ink);
+}
+
+body::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+
+    background: rgba(0, 0, 0, 0.03);
+    background-image: radial-gradient(rgba(0,0,0,0.25) 1px, transparent 1px);
+    background-size: 5px 5px;
+    opacity: 0.2;
+
+    pointer-events: none;
 }
 
 /* ==========================================================================
