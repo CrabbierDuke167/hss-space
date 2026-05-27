@@ -344,6 +344,24 @@ input[type="file"] {
 }
 
 
+/* Hover effects for file item interaction */
+.file-item:hover {
+    background-color: var(--cream);
+    border-color: var(--accent);
+    transform: translateY(-1px);
+    box-shadow: 4px 4px 0 var(--ink);
+    transition: all var(--transition-fast);
+}
+
+/* Drag & Drop structural visual hint */
+.drop-zone:focus-within,
+.drop-zone:active {
+    border-style: solid;
+    border-color: var(--accent);
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+}
+
+
 
 
 /* ==========================================================================
@@ -415,5 +433,24 @@ input[type="file"] {
         width: 100%;
         margin: 1.5rem 0;
         box-sizing: border-box;
+    }
+}
+
+/* Responsive fixes for ultra-thin screens */
+@media (max-width: 360px) {
+    .toggle-container {
+        flex-direction: column;
+        width: 100%;
+        gap: 4px;
+    }
+    
+    .toggle-pill {
+        display: none; /* Degrades to solid brutal block background tags on narrow viewports */
+    }
+    
+    .toggle-btn.active {
+        background-color: var(--accent);
+        border-radius: var(--space-2);
+        color: var(--surface);
     }
 }

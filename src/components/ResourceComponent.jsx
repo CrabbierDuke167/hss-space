@@ -5,7 +5,8 @@ import "../styles/resourceComponent.css";
 
 import {
   Orbit, FlaskConical, FunctionSquare, PenSquare, Binary,
-  ArrowLeft, BookOpen, HelpCircle, Database, Lightbulb, CheckCircle
+  ArrowLeft, BookOpen, HelpCircle, Database, Lightbulb, CheckCircle,
+  FileText, FileImage, ExternalLink, Eye
 } from "lucide-react";
 
 const RESOURCE_MANIFEST = {
@@ -20,6 +21,7 @@ const QuestionCard = ({ q, userId, subjectKey }) => {
   const [showHint, setShowHint] = useState(false);
   const [hasUsedHint, setHasUsedHint] = useState(false);
   const [isSolved, setIsSolved] = useState(false);
+  const [isMissing, setIsMissing] = useState(false); // Validates storage asset synchronization
 
   const handleSolveAction = async () => {
     const confirmed = window.confirm("Are you sure you want to mark this task as solved?");
@@ -46,14 +48,102 @@ const QuestionCard = ({ q, userId, subjectKey }) => {
     }
   };
 
+  // Extract file type extension safely to determine structural presentation strategy
+  const getFileMeta = (url) => {
+    if (!url) return { isImage: false, ext: "" };
+    const ext = url.split('.').pop().toLowerCase();
+    const isImage = ['jpg', 'jpeg', 'png', 'gif', 'webp', 'svg'].includes(ext);
+    return { isImage, ext };
+  };
+
+  // Resolves the absolute secure URL straight from your Supabase storage infrastructure
+  const getPublicStorageUrl = (path) => {
+    if (!path) return "#";
+    const { data } = supabase.storage.from('uploads').getPublicUrl(path);
+    return data?.publicUrl || "#";
+  };
+
+  const { isImage } = getFileMeta(q.file_url);
+  const assetUrl = getPublicStorageUrl(q.file_url);
+
+  // Background pipeline validating if resource object is orphaned/deleted/broken inside cloud storage
+  useEffect(() => {
+    let isMounted = true;
+    if (q.file_url && assetUrl !== "#") {
+      fetch(assetUrl, { method: 'HEAD' })
+        .then((res) => {
+          // If the server returns ANY bad response (status code is NOT in the 200-299 range),
+          // like a 400 Bad Request or a 404 Not Found, mark it as missing.
+          if (!res.ok && isMounted) {
+            setIsMissing(true);
+          }
+        })
+        .catch((err) => {
+          console.log("Network error checking file existence", err);
+          // Fallback: If the request fails completely due to a network error on a dead asset, hide it too
+          if (isMounted) setIsMissing(true);
+        });
+    }
+    return () => { isMounted = false; };
+  }, [q.file_url, assetUrl]);
+
+  // Intercept render tree layout if storage payload object returns bad status (404/400)
+  if (isMissing) return null;
+
   return (
-    <div className={`question-card ${isSolved ? 'solved-card' : ''}`}>
+    <div className={`question-card ${isSolved ? 'solved-card' : ''} ${q.file_url ? 'media-card-variant' : ''}`}>
       <div className="question-header">
-        <Database size={14} /> <span>{isSolved ? "EVALUATION COMPLETE" : "EVALUATION TASK"}</span>
+        <Database size={14} /> 
+        <span>
+          {isSolved 
+            ? "EVALUATION COMPLETE" 
+            : q.file_url 
+              ? isImage ? "IMAGE ATTACHMENT DISPLAY" : "DOCUMENT ATTACHMENT RESOURCE"
+              : "EVALUATION TASK"
+          }
+        </span>
       </div>
+      
+      {/* Question context label fallback container */}
       <p className="question-body">
         {showHint ? "HINT // DATA_STREAM_ENCRYPTED: Analyze the core variables provided in the initial task block." : q.question_text}
       </p>
+
+      {/* Dynamic Inline Media Injection Router Engine */}
+      {q.file_url && !showHint && (
+        <div className="media-rendering-zone">
+          {isImage ? (
+            /* Immersive inline image containment shield with max-fit processing */
+            <div className="inline-image-frame">
+              <img 
+                src={assetUrl} 
+                alt="Resource Task Data Block" 
+                loading="lazy" 
+                className="brutalist-embedded-img"
+              />
+              <div className="image-action-bar">
+                <a href={assetUrl} target="_blank" rel="noopener noreferrer" className="img-expansion-link">
+                  <Eye size={12} /> OPEN FULL RESOLUTION
+                </a>
+              </div>
+            </div>
+          ) : (
+            /* Standalone fallback template layer for document formats like PDFs */
+            <div className="media-attachment-container">
+              <a 
+                href={assetUrl} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="media-download-link"
+              >
+                <FileText size={16} className="media-type-icon document-variant" />
+                <span className="link-text">VIEW SHARED ATTACHMENT (PDF/DOC)</span>
+                <ExternalLink size={12} className="link-arrow-icon" />
+              </a>
+            </div>
+          )}
+        </div>
+      )}
 
       {!isSolved && (
         <div className="q-action-row">
@@ -73,6 +163,7 @@ export const ResourceComponent = () => {
   const location = useLocation();
   const [selectedSubject, setSelectedSubject] = useState(() => location.state?.selectedSubject?.toLowerCase() || null);
   const [selectedChapter, setSelectedChapter] = useState(null);
+  const [viewMode, setViewMode] = useState("text"); // Managed Toggle System States: 'text' | 'media'
   const [questions, setQuestions] = useState([]);
   const [loading, setLoading] = useState(false);
   const [userId, setUserId] = useState(null);
@@ -85,7 +176,11 @@ export const ResourceComponent = () => {
     if (selectedChapter) {
       const fetchQuestions = async () => {
         setLoading(true);
-        const { data } = await supabase.from('questions').select('id, question_text, chapters!inner(name)').eq('chapters.name', selectedChapter);
+        const { data } = await supabase
+          .from('questions')
+          .select('id, question_text, file_url, chapters!inner(name)')
+          .eq('chapters.name', selectedChapter);
+        
         setQuestions(data || []);
         setLoading(false);
       };
@@ -93,31 +188,59 @@ export const ResourceComponent = () => {
     }
   }, [selectedChapter]);
 
+  // Client-side pipeline splits records matching state criteria criteria
+  const filteredQuestions = questions.filter(q => {
+    if (viewMode === "media") {
+      return q.file_url !== null && q.file_url !== "";
+    }
+    return q.file_url === null || q.file_url === "";
+  });
+
   // --- QUESTIONS LEVEL DIRECTORY VIEW ---
   if (selectedSubject && selectedChapter) {
     return (
       <div className="resource-sub-wrapper">
         <button className="resource-back-btn" onClick={() => setSelectedChapter(null)}><ArrowLeft size={16} /> BACK</button>
+        
         <div className="resource-display-div">
           <div className="subject-card view-header-card">
             <h2 className="subject-name">{selectedChapter.toUpperCase()}</h2>
           </div>
         </div>
+
+        {/* Brutalist Module Switcher Control Interface Layer */}
+        <div className="toggle-container style-manifest-override">
+          <div className={`toggle-pill ${viewMode === 'media' ? 'active-file' : 'active-text'}`}></div>
+          <button 
+            type="button"
+            className={`toggle-btn ${viewMode === 'media' ? 'active' : ''}`} 
+            onClick={() => setViewMode('media')}
+          >
+            MEDIA RESOURCES
+          </button>
+          <button 
+            type="button"
+            className={`toggle-btn ${viewMode === 'text' ? 'active' : ''}`} 
+            onClick={() => setViewMode('text')}
+          >
+            TEXT TASKS
+          </button>
+        </div>
+
         <div className="questions-list-container">
           {loading ? (
             <p className="loading-stream-text">SYNCING DATA STREAMS...</p>
-          ) : questions.length === 0 ? (
-            /* Custom professional empty fallback matrix */
+          ) : filteredQuestions.length === 0 ? (
             <div className="question-card empty-state-card">
               <div className="question-header" style={{ color: "var(--taupe)" }}>
                 <Database size={14} /> <span>[DATA_STREAM: UNPOPULATED]</span>
               </div>
               <p className="question-body" style={{ color: "var(--taupe)", fontFamily: "var(--font-mono)", fontSize: "0.9rem" }}>
-                NO ACTIVE EVALUATION TASKS HAVE BEEN COMPILED FOR THIS SPECIFIC MODULE MATRIX YET. INTERNAL COMPILERS RUNNING STABLE.
+                NO ACTIVE {viewMode.toUpperCase()} EVALUATION TASKS HAVE BEEN COMPILED FOR THIS SPECIFIC MODULE MATRIX YET. INTERNAL COMPILERS RUNNING STABLE.
               </p>
             </div>
           ) : (
-            questions.map((q) => (
+            filteredQuestions.map((q) => (
               <QuestionCard key={q.id} q={q} userId={userId} subjectKey={selectedSubject} />
             ))
           )}

@@ -555,6 +555,125 @@
     border-color: #00ff78;
 }
 
+/* Container Override adjustments for display alignment */
+.toggle-container.style-manifest-override {
+  margin: 0 auto 2.5rem auto;
+}
+
+.toggle-container.style-manifest-override button {
+  font-size: 12px;
+  padding-right: 2.2rem;
+  text-align: center;
+}
+
+/* Structural changes for items containing media assets */
+.question-card.media-card-variant {
+  border-left: 4px solid var(--accent);
+}
+
+/* Target Asset Attachment Block Elements */
+.media-attachment-container {
+  margin: 1rem 0;
+  padding: 10px 14px;
+  background-color: var(--cream);
+  border: 2px dashed var(--ink);
+  border-radius: var(--space-2);
+  width: fit-content;
+  transition: all var(--transition-fast);
+}
+
+.media-attachment-container:hover {
+  background-color: var(--surface);
+  border-style: solid;
+  transform: translate(-1px, -1px);
+  box-shadow: 3px 3px 0 var(--ink);
+}
+
+.media-download-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--ink);
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.media-type-icon.image-variant {
+  color: #22c55e; /* Green asset marker accent */
+}
+
+.media-type-icon.document-variant {
+  color: #3b82f6; /* Blue asset marker accent */
+}
+
+.link-arrow-icon {
+  opacity: 0.6;
+  transition: transform var(--transition-fast);
+}
+
+.media-download-link:hover .link-arrow-icon {
+  opacity: 1;
+  transform: translate(1px, -1px);
+}
+
+
+/* Inline Graphic Display Box Setup */
+.media-rendering-zone {
+  width: 100%;
+  margin-top: 1.25rem;
+  box-sizing: border-box;
+}
+
+.inline-image-frame {
+  width: 100%;
+  border: 2px solid var(--ink);
+  background-color: #ffffff;
+  border-radius: var(--space-3);
+  overflow: hidden;
+  box-shadow: 4px 4px 0 var(--ink);
+  transition: transform var(--transition-fast);
+}
+
+/* Image containment rules prioritizing legibility */
+.brutalist-embedded-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 550px; /* Restricts vertical growth so you don't scroll infinitely on tall questions */
+  object-fit: contain; /* Prevents stretching and distortion completely */
+  background-color: #fafafa;
+  border-bottom: 2px solid var(--ink);
+}
+
+/* Image Metadata and Action Overlay strip */
+.image-action-bar {
+  background-color: var(--surface);
+  padding: 8px 14px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.img-expansion-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--ink);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+.img-expansion-link:hover {
+  color: var(--accent);
+}
+
+
+
 
 /* ==========================================================================
    ANIMATIONS
@@ -636,6 +755,13 @@
     .question-body {
         font-size: 14px;
     }
+    /* Mobile & Tablet Aspect Balancing */
+    .brutalist-embedded-img {
+         max-height: 400px; /* Shorter limit on mobile viewports for compact scanning */
+  }
+
+
+
 }
 
 /* Mobile Devices */
@@ -703,4 +829,33 @@
     .palette-dots {
         gap: 6px; 
     }
+}
+
+/* Responsiveness overrides for the switch module across viewports */
+@media (max-width: 480px) {
+  .toggle-container.style-manifest-override {
+    width: 69%;
+    box-sizing: border-box;
+  }
+
+  .toggle-container.style-manifest-override button {
+    font-size: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .toggle-container.style-manifest-override button {
+    font-size: 11px;         /* Slightly crisper text for small screens */
+    padding: 0.5rem 0.8rem;  /* Shaved down padding so buttons fit perfectly side-by-side */
+    letter-spacing: -0.02em; /* Tighter letter tracking to save precious horizontal space */
+  }
+}
+
+@media (max-width: 480px) {
+  .inline-image-frame {
+    box-shadow: 2px 2px 0 var(--ink);
+  }
+  .brutalist-embedded-img {
+    max-height: 320px;
+  }
 }
